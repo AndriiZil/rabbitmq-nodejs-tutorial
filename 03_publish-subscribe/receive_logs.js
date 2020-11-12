@@ -14,6 +14,8 @@ async function receiveLogs() {
 
         await channel.bindQueue(q.queue, exchange, '');
 
+        console.log('[x] Start subscribing the messages...');
+
         await channel.consume(q.queue, (msg) => {
             if (msg.content) {
                 console.log(' [x] %s', msg.content.toString());
