@@ -15,7 +15,7 @@ async function sendMessage() {
 
         await channel.sendToQueue(queue, Buffer.from(msg), { persistent: true });
 
-        console.log('[x] Sent %s', msg);
+        console.log('[x] Sent "%s"', msg);
 
         setTimeout(() => {
             connection.close();

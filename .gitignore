@@ -3,3 +3,7 @@ hello-world/.idea
 work-queues/.idea
 work-queues/node_modules
 hello-world/node_modules
+publish-subscribe/node_modules
+publish-subscribe/.idea
+routing/node_modules
+routing/.idea
