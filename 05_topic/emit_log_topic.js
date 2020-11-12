@@ -11,7 +11,7 @@ async function sendLogTopic() {
         const key = (args.length > 0) ? args[0] : 'anonymous.info';
         const msg = args.slice(1).join(' ') || 'Hello World';
 
-        await channel.assertExchange(exchange, '06_topic', { durable: false });
+        await channel.assertExchange(exchange, '05_topic', { durable: false });
 
         await channel.publish(exchange, key, Buffer.from(msg));
 

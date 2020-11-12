@@ -1,11 +1,11 @@
 const amqp = require('amqplib');
 
-async function receiveLogTopic() {
+async function receiveLogDirect() {
     try {
         const args = process.argv.slice(2);
 
         if (!args.length) {
-            console.log('Usage: receive_logs_topic.js <facility>.<severity>');
+            console.log('Usage: receive_logs_direct.js [info] [warning] [error]');
             process.exit(1);
         }
 
@@ -13,20 +13,19 @@ async function receiveLogTopic() {
 
         const channel = await connection.createChannel();
 
-        const exchange = 'topic_logs';
+        const exchange = 'direct_logs';
 
-        await channel.assertExchange(exchange, '06_topic', { durable: false });
-
-        const q = await channel.assertQueue('', { exclusive: false });
+        const q = await channel.assertQueue('', { exclusive: true });
 
         console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
-        for (let key of args) {
-            await channel.bindQueue(q.queue, exchange, key);
+        for (let severity of args) {
+            console.log(severity);
+            await channel.bindQueue(q.queue, exchange, severity);
         }
 
         await channel.consume(q.queue, (msg) => {
-            console.log('" [x] %s: "%s""', msg.fields.routingKey, msg.content.toString());
+            console.log(' [x] %s: "%s"', msg.fields.routingKey, msg.content.toString());
         }, {
             noAck: true
         });
@@ -36,4 +35,4 @@ async function receiveLogTopic() {
     }
 }
 
-receiveLogTopic().catch(console.log);
+receiveLogDirect().catch(console.log);
