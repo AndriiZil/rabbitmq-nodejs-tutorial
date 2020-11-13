@@ -15,13 +15,14 @@ async function receiveLogTopic() {
 
         const exchange = 'topic_logs';
 
-        await channel.assertExchange(exchange, '05_topic', { durable: false });
+        await channel.assertExchange(exchange, 'topic', { durable: false });
 
         const q = await channel.assertQueue('', { exclusive: false });
 
         console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
         for (let key of args) {
+            console.log(` [x] We are subscribed at: "${key}" key`);
             await channel.bindQueue(q.queue, exchange, key);
         }
 
