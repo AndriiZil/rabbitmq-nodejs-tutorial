@@ -1,8 +1,9 @@
 const ampq = require('amqplib');
+const amqp = require('amqplib');
 
 async function emitLog() {
     try {
-        const connection = await ampq.connect('amqp://localhost:5672');
+        const connection = await amqp.connect('amqp://myuser:mypassword@localhost:5672');
 
         const channel = await connection.createChannel();
 

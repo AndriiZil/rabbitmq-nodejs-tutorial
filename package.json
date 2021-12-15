@@ -18,6 +18,6 @@
   },
   "homepage": "https://github.com/AndriiZil/rabbitmq-nodejs-tutorial#readme",
   "dependencies": {
-    "amqplib": "^0.6.0"
+    "amqplib": "^0.8.0"
   }
 }

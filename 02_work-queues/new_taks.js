@@ -4,7 +4,8 @@ const amqp = require('amqplib');
 
 async function sendMessage() {
     try {
-        const connection = await amqp.connect('amqp://localhost:5672');
+        // Connection to the server
+        const connection = await amqp.connect('amqp://myuser:mypassword@localhost:5672');
 
         const channel = await connection.createChannel();
 

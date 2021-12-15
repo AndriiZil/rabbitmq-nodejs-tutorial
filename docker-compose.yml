@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  rabbitmq3:
+    container_name: rabbitmq
+    image: rabbitmq:3.9.11-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=myuser
+      - RABBITMQ_DEFAULT_PASS=mypassword
+    ports:
+      # AMQP protocol port
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
+    networks:
+      - rabbitmq_go_net
+
+networks:
+  rabbitmq_go_net:
+    driver: bridge
