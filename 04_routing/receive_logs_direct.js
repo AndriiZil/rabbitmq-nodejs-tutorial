@@ -20,8 +20,9 @@ async function receiveLogDirect() {
         console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
         for (let severity of args) {
-            console.log(severity);
-            await channel.bindQueue(q.queue, exchange, severity);
+            console.log('SEVERITY', severity);
+
+            await channel.bindQueue(q.queue, exchange, severity); // "severity" - binding key
         }
 
         await channel.consume(q.queue, (msg) => {

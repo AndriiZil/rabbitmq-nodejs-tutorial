@@ -1,4 +1,3 @@
-const ampq = require('amqplib');
 const amqp = require('amqplib');
 
 async function emitLog() {
@@ -12,6 +11,8 @@ async function emitLog() {
 
         await channel.assertExchange(exchange, 'fanout', { durable: false });
 
+        // The empty string as second parameter means that we don't want to send the message to any specific queue.
+        // We want only to publish it to our 'logs' exchange.
         await channel.publish(exchange, '', Buffer.from(msg));
 
         console.log(' [x] Sent "%s"', msg);

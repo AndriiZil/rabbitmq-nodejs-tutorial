@@ -24,3 +24,8 @@ keys of logs will have two words: "<facility>.<severity>".
 ```
     node emit_log_topic.js "kern.critical" "A critical kernel error"
 ```
+
+```
+    * (star) can substitute for exactly one word.
+    # (hash) can substitute for zero or more words.
+```

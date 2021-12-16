@@ -18,7 +18,7 @@ async function receive() {
         console.log(' [*] Waiting for messages in "%s". To exit press CTRL+C', queue);
 
         await channel.consume(queue, (msg) => {
-            console.log('MSG', msg.content.toString());
+            console.log('MSG', JSON.stringify(msg, null, 2));
             // const secs = msg.content.toString().split('.').length - 1;
 
             console.log(' [x] Received "%s"', msg.content.toString());

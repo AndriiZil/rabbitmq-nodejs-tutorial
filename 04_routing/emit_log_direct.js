@@ -15,7 +15,7 @@ async function sendLogDirect() {
 
         await channel.assertExchange(exchange, 'direct', { durable: false });
 
-        await channel.publish(exchange, severity, Buffer.from(msg));
+        await channel.publish(exchange, severity, Buffer.from(msg)); // "severity" - routing key
 
         console.log(' [x] Sent %s: "%s"', severity, msg);
 
