@@ -28,4 +28,4 @@ async function sendLogDirect() {
   }
 }
 
-sendLogDirect().catch(console.log);
+sendLogDirect().catch(console.error);

@@ -9,6 +9,14 @@ async function receiveLogs() {
     const exchange = 'logs';
 
     await channel.assertExchange(exchange, 'fanout', { durable: false });
+
+    /**
+     * Whenever we connect to Rabbit we need a fresh, empty queue. To do this we could create a queue with a random name,
+     * or, even better - let the server choose a random queue name for us.
+     *
+     * Once we disconnect the consumer the queue should be automatically deleted.
+     * In the amqp.node client, when we supply queue name as an empty string, we create a non-durable queue with a generated name:
+     */
     const q = await channel.assertQueue('', { exclusive: true });
 
     console.log('QUEUE', q);
@@ -20,7 +28,13 @@ async function receiveLogs() {
      * }
      */
 
+    /**
+     * That relationship between exchange and a queue is called a binding.
+     */
     await channel.bindQueue(q.queue, exchange, ''); // "" - binding key ignored
+    /**
+     * routing key is ignored for "fanout" exchanges
+     */
 
     console.log('[x] Start subscribing the messages...');
 
