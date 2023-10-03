@@ -10,6 +10,9 @@ At this point we're sure that the task_queue queue won't be lost even if RabbitM
 messages as `persistent` - by using the persistent option Channel.sendToQueue takes. Marking messages as persistent 
 doesn't fully guarantee that a message won't be lost.
 
+* RabbitMQ doesn't allow you to redefine an existing queue with different parameters (`{ durable: true }`) and will return an error 
+to any program that tries to do that
+
 * In order to defeat that we can use the `prefetch` method with the value of 1. This tells RabbitMQ not to give more than 
 one message to a worker at a time. Or, in other words, don't dispatch a new message to a worker until it has processed 
 and acknowledged the previous one. Instead, it will dispatch it to the next worker that is not still busy.
@@ -17,3 +20,14 @@ and acknowledged the previous one. Instead, it will dispatch it to the next work
 * Using message acknowledgments and prefetch you can set up a work queue. The durability options let the tasks survive 
 even if RabbitMQ is restarted.
 * More info about send options here http://www.squaremobius.net/amqp.node/channel_api.html#channel_sendToQueue
+
+### Example
+- In the console type `node worker.js`
+- Then in console type `node new_task.js`
+```bash
+  node new_task.js First message.
+  node new_task.js Second message..
+  node new_task.js Third message...
+  node new_task.js Fourth message....
+  node new_task.js Fifth message.....
+```

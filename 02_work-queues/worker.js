@@ -4,35 +4,32 @@ const amqp = require('amqplib');
 
 async function receive() {
 
-    try {
-        const connection = await amqp.connect('amqp://myuser:mypassword@localhost:5672');
+  try {
+    const connection = await amqp.connect('amqp://myuser:mypassword@localhost:5672');
 
-        const queue = 'task_queue';
+    const queue = 'task_queue';
+    const channel = await connection.createChannel();
+    await channel.assertQueue(queue, { durable: true });
+    await channel.prefetch(1);
 
-        const channel = await connection.createChannel();
+    console.log(' [*] Waiting for messages in "%s". To exit press CTRL+C', queue);
 
-        await channel.assertQueue(queue, { durable: true });
+    await channel.consume(queue, (msg) => {
+      const secs = msg.content.toString().split('.').length - 1;
 
-        await channel.prefetch(1);
+      console.log(' [x] Received "%s"', msg.content.toString());
 
-        console.log(' [*] Waiting for messages in "%s". To exit press CTRL+C', queue);
+      setTimeout(() => {
+        console.log(' [x] Done');
+        channel.ack(msg);
 
-        await channel.consume(queue, (msg) => {
-            console.log('MSG', JSON.stringify(msg, null, 2));
-            // const secs = msg.content.toString().split('.').length - 1;
+      }, secs * 1000);
 
-            console.log(' [x] Received "%s"', msg.content.toString());
-
-            setTimeout(() => {
-                console.log(' [x] Done');
-                channel.ack(msg);
-
-            }, 2500);
-
-        }, { noAck: false });
-    } catch (err) {
-        console.log(err);
-    }
+      // false is manual acknowledgment mode, if you terminate a worker using CTRL+C while it was processing a message, nothing is lost.
+    }, { noAck: false });
+  } catch (err) {
+    console.error(err);
+  }
 
 }
 

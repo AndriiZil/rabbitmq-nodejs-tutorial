@@ -1,5 +1,16 @@
 # RABBIT MQ TUTORIAL (using the amqp.node client) (`AMQP 0-9-1` protocol) FIFO Queue.
 
+1. [Hello World](01_hello-world/README.md)
+2. [Work Queues](02_work-queues/README.md)
+3. [Publish Subscribe (fanout exchange)](03_publish-subscribe/README.md)
+4. [Routing (direct exchange)](04_routing/README.md)
+5. [Topic (topic exchange)](05_topic/README.md)
+6. [Headers (headers exchange)](06_headers/README.md)
+7. [RPC](07_rpc/README.md)
+
+### Exchanges
+* There are a few exchange types available: `direct`, `topic`, `headers` and `fanout`.
+
 ### In order to run in docker without `docker-compose.yml`
 ```
     docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
