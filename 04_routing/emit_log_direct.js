@@ -1,3 +1,5 @@
+'use strict';
+
 const amqp = require('amqplib');
 
 async function sendLogDirect() {
@@ -15,7 +17,8 @@ async function sendLogDirect() {
 
     await channel.assertExchange(exchange, 'direct', { durable: false });
 
-    await channel.publish(exchange, severity, Buffer.from(msg)); // "severity" - routing key
+    // "severity" - it's the "routing key"
+    await channel.publish(exchange, severity, Buffer.from(msg));
 
     console.log(' [x] Sent %s: "%s"', severity, msg);
 

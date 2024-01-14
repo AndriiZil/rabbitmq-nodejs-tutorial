@@ -1,4 +1,4 @@
-### Routing RabbitMQ
+### Routing RabbitMQ (direct)
 
 ## Direct exchange
 
@@ -6,7 +6,8 @@
 in messages from this exchange.
 
 * The routing algorithm behind a `direct` exchange is simple - a message goes to the queues whose `binding key` 
-exactly matches the routing key of the message.
+exactly matches the `routing key` of the message.
+
 * In order to listen the direct queue type:
 ```bash
     node receive_logs_direct.js warning error info
@@ -23,7 +24,11 @@ exactly matches the routing key of the message.
 ```bash
     node receive_logs_direct.js info
 ```
+
+#### Emmiting messages
+
 * The queue will listen messages provided after "receive_logs_direct.js"
+
 * In order to send the direct message to the queue type:
 ```bash
     node emit_log_direct.js error

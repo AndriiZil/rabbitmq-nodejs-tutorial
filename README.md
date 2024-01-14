@@ -1,5 +1,7 @@
 # RABBIT MQ TUTORIAL (using the amqp.node client) (`AMQP 0-9-1` protocol) FIFO Queue.
 
+- The latest docker image for 14.01.2024 (`rabbitmq:3.13.0-rc.4-management-alpine`)
+
 1. [Hello World](01_hello-world/README.md)
 2. [Work Queues](02_work-queues/README.md)
 3. [Publish Subscribe (fanout exchange)](03_publish-subscribe/README.md)

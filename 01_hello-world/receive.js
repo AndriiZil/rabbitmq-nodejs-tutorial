@@ -5,8 +5,8 @@ const amqp = require('amqplib');
 async function receive() {
 
   try {
-    // Create connection to the server
-    const opts = {credentials: amqp.credentials.plain('myuser', 'mypassword')} // TODO env file docker-compose
+    // Create connection to the server, TODO env file docker-compose
+    const opts = { credentials: amqp.credentials.plain('myuser', 'mypassword') }
 
     const connection = await amqp.connect('amqp://localhost:5672', opts);
 

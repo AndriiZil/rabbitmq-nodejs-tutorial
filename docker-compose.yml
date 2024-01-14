@@ -3,7 +3,7 @@ version: '3.9'
 services:
   rabbitmq3:
     container_name: rabbitmq
-    image: rabbitmq:3.12.6-management-alpine
+    image: rabbitmq:3.13.0-rc.4-management-alpine
     environment:
       - RABBITMQ_DEFAULT_USER=myuser
       - RABBITMQ_DEFAULT_PASS=mypassword

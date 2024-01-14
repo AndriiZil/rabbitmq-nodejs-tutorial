@@ -12,7 +12,10 @@ async function sendMessage() {
     const queue = 'task_queue';
     const msg = process.argv.slice(2).join(' ') || 'Hello World';
 
+    // Messages aren't lost after RabbitMQ quits or crashes
     await channel.assertQueue(queue, { durable: true });
+
+    // Mark our messages as persistent
     await channel.sendToQueue(queue, Buffer.from(msg), { persistent: true });
 
     console.log('[x] Sent "%s"', msg);

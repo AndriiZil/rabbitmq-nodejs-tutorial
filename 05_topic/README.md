@@ -4,8 +4,10 @@
 
 * We're going to use a topic exchange in our logging system. We'll start off with a working assumption that the routing 
 keys of logs will have two words: "<facility>.<severity>".
+
 * When a queue is bound with "#" (hash) binding key - it will receive all the messages, 
 regardless of the routing key - like in fanout exchange.
+
 * When special characters "*" (star) and "#" (hash) aren't used in bindings, the topic exchange will behave just like a direct one.
 
 * In receive_logs_topic.js file type:

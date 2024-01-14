@@ -1,3 +1,5 @@
+'use strict';
+
 const amqp = require('amqplib');
 
 async function receiveLogDirect() {
@@ -14,15 +16,19 @@ async function receiveLogDirect() {
     const channel = await connection.createChannel();
     const exchange = 'direct_logs';
 
+    await channel.assertExchange(exchange, 'direct', { durable: false });
+
     const q = await channel.assertQueue('', { exclusive: true });
 
     console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
-    for (let severity of args) {
+    const requests = args.map((severity) => {
       console.log(' [x] Received %s:', severity);
+      // "severity" - it's a "binding key"
+      return channel.bindQueue(q.queue, exchange, severity);
+    });
 
-      await channel.bindQueue(q.queue, exchange, severity); // "severity" - binding key
-    }
+    await Promise.all(requests);
 
     await channel.consume(q.queue, (msg) => {
       console.log(' [x] %s: "%s"', msg.fields.routingKey, msg.content.toString());
