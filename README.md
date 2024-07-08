@@ -1,5 +1,15 @@
 # RABBIT MQ TUTORIAL (using the amqp.node client) (`AMQP 0-9-1` protocol) FIFO Queue.
 
+## Licence
+
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+
+## Technologies
+
+![image](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
+![image](https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white)
+![image](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
+
 - The latest docker image for 14.01.2024 (`rabbitmq:3.13.0-rc.4-management-alpine`)
 
 1. [Hello World](01_hello-world/README.md)
